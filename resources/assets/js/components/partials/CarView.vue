@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {traxAPI} from "../../traxAPI";
+import { traxAPI } from "../../traxAPI";
 
 export default {
   props: [],
@@ -49,11 +49,11 @@ export default {
     fetch() {
       axios.get(traxAPI.getCarEndpoint(this.$route.params.id))
         .then(response => {
-          this.year = response.data.data.year;
-          this.make = response.data.data.make;
-          this.model = response.data.data.model;
-          this.trip_count = response.data.data.trip_count;
-          this.trip_miles = response.data.data.trip_miles;
+          this.year = response.data.car.year;
+          this.make = response.data.car.make;
+          this.model = response.data.car.model;
+          this.trip_count = response.data.car.trip_count
+          this.trip_miles = response.data.car.total_miles
         })
         .catch(e => {
           console.log(e);
@@ -64,8 +64,8 @@ export default {
         .then(response => {
           this.$router.push('/cars');
         }).catch(e => {
-        alert('Failed To Delete')
-      });
+          alert('Failed To Delete')
+        });
     }
   },
   components: {}
