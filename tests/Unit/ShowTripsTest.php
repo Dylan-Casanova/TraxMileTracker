@@ -10,6 +10,7 @@ class TripsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** @test */
     public function testGetTrips()
     {
         // Create some test data
@@ -51,7 +52,7 @@ class TripsControllerTest extends TestCase
 
         // Assert the response structure and data
         $expectedStructure = [
-            'trips' => [
+            'data' => [
                 '*' => [
                     'id',
                     'date',

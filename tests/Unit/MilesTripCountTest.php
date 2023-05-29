@@ -1,12 +1,16 @@
 <?php
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\CarsController;
 use Carbon\Carbon;
+
 class CarTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
     public function testCarShowWithTrips()
     {
         // Create a car
@@ -32,8 +36,8 @@ class CarTest extends TestCase
         // Assert the response status is successful
         $this->assertEquals(200, $response->getStatusCode());
         // Assert the car has the correct total miles
-        $this->assertEquals(370, $response->getData()->car->total_miles);
+        $this->assertEquals(370, $response->getData()->data->total_miles);
         // Assert the car has the correct trip count
-        $this->assertEquals(3, $response->getData()->car->trip_count);
+        $this->assertEquals(3, $response->getData()->data->trip_count);
     }
 }
