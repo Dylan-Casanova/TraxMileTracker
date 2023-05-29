@@ -51,7 +51,7 @@ export default {
     fetch() {
       axios.get(traxAPI.getCarsEndpoint())
         .then(response => {
-          this.items = response.data.cars;
+          this.items = response.data.data;
         })
         .catch(e => {
           console.log(e);
