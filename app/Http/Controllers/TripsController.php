@@ -50,7 +50,7 @@ class TripsController extends Controller
         }
 
         return response()->json([
-            'trips' => $formattedTrips
+            'data' => $formattedTrips
         ]);
     }
 

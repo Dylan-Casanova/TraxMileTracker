@@ -20,7 +20,7 @@ class CarsController extends Controller
         $cars = Cars::all();
 
         return response()->json([
-            'cars' => $cars
+            'data' => $cars
         ]);
     }
     /**
@@ -41,7 +41,7 @@ class CarsController extends Controller
         $car = Cars::create($validatedData);
 
         return response()->json([
-            'car' => $car,
+            'data' => $car,
             'message' => 'Car created successfully'
         ], 201);
     }
@@ -67,7 +67,7 @@ class CarsController extends Controller
         $car->total_miles = $totalMiles ?? 0;
         $car->trip_count = $tripCount ?? 0;
         return response()->json([
-            'car' => $car,
+            'data' => $car,
         ]);
     }
 

@@ -54,8 +54,8 @@ export default {
         .get(traxAPI.getCarsEndpoint())
         .then((response) => {
           let cars = [];
-          for (let i = 0; i < response.data.cars.length; i++) {
-            let car = response.data.cars[i];
+          for (let i = 0; i < response.data.data.length; i++) {
+            let car = response.data.data[i];
             cars.push({
               text: car.year + " " + car.make + " " + car.model,
               value: car.id,

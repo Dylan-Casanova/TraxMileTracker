@@ -45,7 +45,7 @@ export default {
       axios
         .get(traxAPI.getTripsEndpoint())
         .then((response) => {
-          this.items = response.data.trips;
+          this.items = response.data.data;
         })
         .catch((e) => {
           console.log(e);
