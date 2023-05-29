@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Config;
+use App\Http\Requests\CarsRequest;
 use App\Cars;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CarsController extends Controller
@@ -14,7 +13,6 @@ class CarsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         $cars = Cars::all();
@@ -23,20 +21,16 @@ class CarsController extends Controller
             'data' => $cars
         ]);
     }
+
     /**
      * Store a newly created car in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CarsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarsRequest $request)
     {
-        $validatedData = $request->validate([
-            'make' => 'required',
-            'model' => 'required',
-            'year' => 'required|numeric',
-
-        ]);
+        $validatedData = $request->validated();
 
         $car = Cars::create($validatedData);
 
@@ -52,17 +46,13 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function show($id)
+    public function show(Cars $car)
     {
-        $car = DB::table('cars')
-            ->where('id', $id)
-            ->first();
         $totalMiles = DB::table('trips')
-            ->where('car_id', $id)
+        ->where('car_id', $car->id)
             ->sum('miles');
         $tripCount = DB::table('trips')
-            ->where('car_id', $id)
+        ->where('car_id', $car->id)
             ->count();
         $car->total_miles = $totalMiles ?? 0;
         $car->trip_count = $tripCount ?? 0;
@@ -71,13 +61,18 @@ class CarsController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified car from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Cars $car)
     {
-        $car = Cars::findOrFail($id);
         $car->delete();
 
         return response()->json([
             'message' => 'Car deleted successfully',
-        ], 200 );
+        ], 200);
     }
 }
