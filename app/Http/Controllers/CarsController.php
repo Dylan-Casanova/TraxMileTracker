@@ -43,16 +43,16 @@ class CarsController extends Controller
     /**
      * Display the specified car.
      *
-     * @param  int  $id
+     * @param  \App\Cars  $car
      * @return \Illuminate\Http\Response
      */
     public function show(Cars $car)
     {
         $totalMiles = DB::table('trips')
-        ->where('car_id', $car->id)
+            ->where('car_id', $car->id)
             ->sum('miles');
         $tripCount = DB::table('trips')
-        ->where('car_id', $car->id)
+            ->where('car_id', $car->id)
             ->count();
         $car->total_miles = $totalMiles ?? 0;
         $car->trip_count = $tripCount ?? 0;
@@ -64,7 +64,7 @@ class CarsController extends Controller
     /**
      * Remove the specified car from storage.
      *
-     * @param  int  $id
+     * @param  \App\Cars  $car
      * @return \Illuminate\Http\Response
      */
     public function destroy(Cars $car)
